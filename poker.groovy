@@ -83,7 +83,7 @@ for (i=0;i<5;i++){
 	}
 }
 
-//Looking if all the suits are the same
+//Looking if all the suits are the same (for the flush and the straight_flush)
 
 for(i=0;i<4;i++){
 	if (card[i][1]!=card[i+1][1]){
@@ -107,8 +107,10 @@ if (straight_flush){
 	best_hand=true;
 } 
 
-if(!all_different_rank){
+
 //checking if there's a poker
+
+if(!all_different_rank){
 	for (i=0;i<=1;i++){
 		for(j=(i+1);j<5;j++){
 			if(card[i][0]==card[j][0]){
@@ -127,6 +129,16 @@ if(!all_different_rank){
 	}
 }
 
+//checking if there's a full house
+
+
+if(!best_hand && !all_different_rank && ((card[0][0] == card[1][0] && card [2][0]== card[1][0] && card[3][0]==card[4][0]) ||  (card[0][0] == card[1][0] && card [2][0]== card[3][0] && card[3][0]==card[4][0]))){
+	println ("You have a fullhouse!");
+	best_hand = true;
+}
+	
+
+
 if(flush && !best_hand){
 	println ("You got a flush!");
 	best_hand=true;
@@ -137,6 +149,21 @@ if(straight && !best_hand){
 	best_hand=true;
 }
 
+if(three_kind && !best_hand && ((card[0][0] == card[1][0] && card [2][0]== card[1][0]) || (card[1][0] == card[2][0] && card [2][0]== card[3][0]) || (card[2][0] == card[3][0] && card [3][0]== card[4][0]))){
+	best_hand=true;
+	println ("You got three of a kind!");
+}
+
+if(two_pairs && !best_hand && ((card[0][0] == card[1][0] && card [2][0] == card[3][0]) || (card[0][0] == card[1][0] && card [3][0]== card[4][0]) || (card[2][0] == card[1][0] && card [3][0]== card[4][0]))){
+	best_hand=true;
+	print ("You got two pairs!");
+}
+
+if(pair && !best_hand && (card[0][0] == card [1][0] || card[1][0] == card [2][0] || card[2][0] == card [3][0] || card[3][0] == card [4][0])){
+	best_hand=true;
+	println ("You got a pair!");
+}
+		
 if(!best_hand){
 	println ("So what do you got? YOU GOT NOTHING!");
 }
