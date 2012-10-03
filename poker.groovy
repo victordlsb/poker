@@ -80,8 +80,56 @@ for (i=0;i<5;i++){
 	}
 }
 
+// checking if  they all are from the same suit;
+for(i=0;i<4;i++){
+	if (card[i][1]!=card[i+1][1]){
+		flush = false;
+		straight_flush=false;
+		break;
+	}
+}
+
+
+// checking if it is straight
+for(i=0;i<4;i++){
+	if (card[i][0]+1!=card[i+1][0]){
+		straight=false;
+		straight_flush=false;
+	}
+}
+
+
+// Print the hand
+
+if (straight_flush){
+	println ("You got a straight flush!");
+//} else if (poker){
+//	println ("You got a poker!");
+//} else if (full_house){
+//	println ("You have a full_house!");
+} else if (flush) {
+	println ("You have a flush");
+} else if (straight){
+	println ("You got a straight!");
+//} else if (three_kind){
+//	println ("You got three of a kind");
+//} else if (two_pairs){
+//	println ("You have two pairs");
+//} else if (pair){
+//	println ("You have a pair ");
+} else {
+	println ("You got absolutely nothing...");
+}
+
+
+
+		
+
+/*
+
 for(i=0;i<5;i++){
 	println (card[i][0]);
 }
 	
-	
+
+*/
