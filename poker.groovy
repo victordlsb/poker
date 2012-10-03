@@ -8,7 +8,9 @@ boolean straight = true;
 boolean three_kind = true;
 boolean two_pairs = true;
 boolean pair = true;
-boolean
+boolean all_different_rank=true;
+boolean best_hand=false;
+
 String src;
 int[][] card = new int[5][2];
 int i=0;
@@ -76,7 +78,7 @@ for (i=0;i<5;i++){
 		}else if(card[i][0]==card[j][0]){
 			straight=false;
 			straight_flush=false;
-			
+			all_different_rank=false;			
 		}		
 	}
 }
@@ -102,8 +104,10 @@ for(i=0;i<4;i++){
 
 if (straight_flush){
 	println ("You got a straight flush!");
-} else {
+	best_hand=true;
+} 
 
+if(!all_different_rank){
 //checking if there's a poker
 	for (i=0;i<=1;i++){
 		for(j=(i+1);j<5;j++){
@@ -111,8 +115,9 @@ if (straight_flush){
 				number_of_coincidences++;
 			}
 		}
-		if(number_of_coincidences==4){
+		if(number_of_coincidences==3){
 			poker = true;
+			best_hand=true;
 			println ("You got a Poker!");
 			break;
 		} else {
@@ -122,18 +127,21 @@ if (straight_flush){
 	}
 }
 
+if(flush && !best_hand){
+	println ("You got a flush!");
+	best_hand=true;
+}
+
+if(straight && !best_hand){
+	println ("You got a straight");
+	best_hand=true;
+}
+
+if(!best_hand){
+	println ("So what do you got? YOU GOT NOTHING!");
+}
 
 
-// checking if they all are from the same suit (if there are two or more of the same rank this is impossible);
-
-
-
-
-
-// Print the hand
-
-
-		
 
 /*
 
