@@ -8,7 +8,7 @@ boolean straight = true;
 boolean three_kind = true;
 boolean two_pairs = true;
 boolean pair = true;
-
+boolean all_ranks_different = true;
 
 String src;
 int[][] card = new int[5][2];
@@ -76,25 +76,44 @@ for (i=0;i<5;i++){
 		}else if(card[i][0]==card[j][0]){
 			straight=false;
 			straight_flush=false;
+			all_ranks_different=false;   //this will allow the program to see if there is a poker, a full house, a three of a kind, two pairs or a pair
 		}		
 	}
 }
 
-// checking if  they all are from the same suit;
-for(i=0;i<4;i++){
-	if (card[i][1]!=card[i+1][1]){
-		flush = false;
-		straight_flush=false;
-		break;
+
+if(!all_ranks_different){
+
+	//checking if there's a poker
+	for (i=0;i<=1;i++){
+		int number_of_coincidences=0;
+		for(j=(i+1);i<5;i++){
+			if(card[i][0]==card[j][0]){
+				number_of_coincidences++;
+			}
+	}
+	if(number_of_coincidences != 4){
+		poker = false;
+	}
+}
+// checking if they all are from the same suit (if there are two or more of the same rank this is impossible);
+if (!poker && !full_house && !three_kind && !two_pairs && !pair){
+	for(i=0;i<4;i++){
+		if (card[i][1]!=card[i+1][1]){
+			flush = false;
+			straight_flush=false;
+			break;
+		}
 	}
 }
 
-
 // checking if it is straight
-for(i=0;i<4;i++){
-	if (card[i][0]+1!=card[i+1][0]){
-		straight=false;
-		straight_flush=false;
+if(straight){
+	for(i=0;i<4;i++){
+		if (card[i][0]+1!=card[i+1][0]){
+			straight=false;
+			straight_flush=false;
+		}
 	}
 }
 
@@ -106,7 +125,7 @@ if (straight_flush){
 //} else if (poker){
 //	println ("You got a poker!");
 //} else if (full_house){
-//	println ("You have a full_house!");
+//	println ("You have a full house!");
 } else if (flush) {
 	println ("You have a flush");
 } else if (straight){
